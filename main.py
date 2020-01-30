@@ -25,8 +25,8 @@ spruengeInUebung = 0
 while spruengeInUebung < 10:
 	if spruengeInUebung == 0:
 	  #Beginn im Stand
-		erstesElement = elemente["Stand"][random.randrange(0, len(elemente))]
-		uebung.append(erstesElement)
+		erstesElementMitFolgeelement = elemente["Stand"][random.randrange(0, len(elemente))]
+		uebung.append(erstesElementMitFolgeelement)
 	elif spruengeInUebung > 0:
 		letztesElement=uebung[-1]
 		erlaubtesElement="nein"
