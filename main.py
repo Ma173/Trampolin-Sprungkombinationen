@@ -20,6 +20,7 @@ elemente = {
     ""
 }
 
+
 uebung = []
 spruengeInUebung = 0
 while spruengeInUebung < 10:
