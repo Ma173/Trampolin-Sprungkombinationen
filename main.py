@@ -17,7 +17,7 @@ elemente = {
         "Rücken", "halbe Rücken"
     ],
     "Bauch": ["Stand","halbe Stand","Rücken","halbe Heli","Bauch","Wende in den Rücken"],
-    ""
+    
 }
 
 uebung = []
