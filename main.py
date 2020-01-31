@@ -20,6 +20,7 @@ elemente={
   "Bücke":((0,"Stand","Stand",0),),
   "Grätsche":((0,"Stand","Stand",0),),
   "halbe Schraube":((0.1,"Stand","Stand",0),),
+  "halbe Stand":((0.1,"Rücken","Stand",0),(0.1,"Bauch","Stand",0),(0,"Sitz","Stand",0)),
   "halbe Hocke":((0.1,"Stand","Stand",1),),
   "halbe Bücke":((0.1,"Stand","Stand",1),),
   "halbe Grätsche":((0.1,"Stand","Stand",1),),
@@ -119,43 +120,54 @@ while spruengeInUebung < 10:
   if spruengeInUebung == 0:
 	  #Beginn im Stand
     erstesElementKey = list(ausStand.keys())[random.randrange(0, len(ausStand))]
-    erstesElement=ausStand[erstesElementKey]
-    weirdheitDesElements = erstesElement[3]
+    erstesElement=((erstesElementKey,ausStand[erstesElementKey]))
+    weirdheitDesElements = erstesElement[1][3]
     while weirdheitDesElements>erlaubteWeirdheit:
       erstesElement = ausStand[list(ausStand.keys())[random.randrange(0, len(ausStand))]]
       weirdheitDesElements = erstesElement[3]
     uebung.append(erstesElement)
     print("\nErstes Element:",erstesElement)
+    print("Erstes ElementKey:",erstesElementKey)
   elif spruengeInUebung > 0:
-    letztePosition=uebung[-1][1]
+    letztePosition=uebung[-1][1][1]
+    print("Letzte Position:",letztePosition)
     if letztePosition=="Stand":
-      zufallselement = ausStand[list(ausStand.keys())[random.randrange(0, len(ausStand))]]
-      weirdheitDesElements = zufallselement[3]
+      zufallselement = list(ausStand.keys())[random.randrange(0, len(ausStand))]
+      zufallselement = ((zufallselement,ausStand[zufallselement]))
+      print("Zufallsement:",zufallselement)
+      weirdheitDesElements = zufallselement[1][3]
       while weirdheitDesElements>erlaubteWeirdheit:
-        zufallselement = ausStand[list(ausStand.keys())[random.randrange(0, len(ausStand))]]
-        weirdheitDesElements = zufallselement[3]
+        zufallselement = list(ausStand.keys())[random.randrange(0, len(ausStand))]
+        zufallselement = ((zufallselement,ausStand[zufallselement]))
+        weirdheitDesElements = zufallselement[1][3]
 
     elif letztePosition=="Sitz":
-      zufallselement = ausSitz[list(ausStand.keys())[random.randrange(0, len(ausSitz))]]
-      weirdheitDesElements = zufallselement[3]
+      zufallselement = list(ausSitz.keys())[random.randrange(0, len(ausSitz))]
+      zufallselement = ((zufallselement,ausSitz[zufallselement]))
+      weirdheitDesElements = zufallselement[1][3]
       while weirdheitDesElements>erlaubteWeirdheit:
-        zufallselement = ausSitz[list(ausStand.keys())[random.randrange(0, len(ausSitz))]]
-        weirdheitDesElements = zufallselement[3]
+        zufallselement = list(ausSitz.keys())[random.randrange(0, len(ausSitz))]
+        zufallselement = ((zufallselement,ausSitz[zufallselement]))
+        weirdheitDesElements = zufallselement[1][3]
 
     elif letztePosition=="Bauch":
-      zufallselement = ausBauch[list(ausStand.keys())[random.randrange(0, len(ausBauch))]]
-      weirdheitDesElements = zufallselement[3]
+      zufallselement = list(ausBauch.keys())[random.randrange(0, len(ausBauch))]
+      zufallselement = ((zufallselement,ausBauch[zufallselement]))
+      weirdheitDesElements = zufallselement[1][3]
       while weirdheitDesElements>erlaubteWeirdheit:
-        zufallselement = ausBauch[list(ausStand.keys())[random.randrange(0, len(ausBauch))]]
-        weirdheitDesElements = zufallselement[3]
+        zufallselement = list(ausBauch.keys())[random.randrange(0, len(ausBauch))]
+        zufallselement = ((zufallselement,ausBauch[zufallselement]))
+        weirdheitDesElements = zufallselement[1][3]
 
     elif letztePosition=="Rücken":
-      zufallselement = ausRücken[list(ausStand.keys())[random.randrange(0, len(ausRücken))]]
-      weirdheitDesElements = zufallselement[3]
+      zufallselement = list(ausRücken.keys())[random.randrange(0, len(ausRücken))]
+      zufallselement = ((zufallselement,ausRücken[zufallselement]))
+      weirdheitDesElements = zufallselement[1][3]
       while weirdheitDesElements>erlaubteWeirdheit:
-        zufallselement = ausRücken[list(ausStand.keys())[random.randrange(0, len(ausRücken))]]
-        weirdheitDesElements = zufallselement[3]
-    uebung.append(zufallselement)
+        zufallselement = list(ausRücken.keys())[random.randrange(0, len(ausRücken))]
+        zufallselement = ((zufallselement,ausRücken[zufallselement]))
+        weirdheitDesElements = zufallselement[1][3]
+    uebung.append((zufallselement))
     print("Zufallselement Nr",spruengeInUebung,"ist:",zufallselement)
   spruengeInUebung += 1
 print("\n\n")
