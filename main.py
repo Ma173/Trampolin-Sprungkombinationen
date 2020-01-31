@@ -129,7 +129,7 @@ while spruengeInUebung < 10:
     print("\nErstes Element:",erstesElement)
     print("Erstes ElementKey:",erstesElementKey)
   elif spruengeInUebung > 0:
-    letztePosition=uebung[-1][1][1]
+    letztePosition=uebung[-1][1][2]
     print("Letzte Position:",letztePosition)
     if letztePosition=="Stand":
       zufallselement = list(ausStand.keys())[random.randrange(0, len(ausStand))]
@@ -169,6 +169,7 @@ while spruengeInUebung < 10:
         weirdheitDesElements = zufallselement[1][3]
     uebung.append((zufallselement))
     print("Zufallselement Nr",spruengeInUebung,"ist:",zufallselement)
+  print("Übung bisher:",uebung)
   spruengeInUebung += 1
 print("\n\n")
 for sprung in uebung:
