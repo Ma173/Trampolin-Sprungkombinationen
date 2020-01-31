@@ -14,8 +14,8 @@ elemente={
   #Elementname : (Schwierigkeit, Position vorher, Position nachher,Weirdheitsfaktor 0 (gewöhnlich)- 1 (ungewöhnlich) - 2 (schwer machbar/ sehr ungewohnt))
 
   #IN STAND
-  "Stand":((0.1,"Rücken","Stand",0),(0.1,"Bauch","Stand",0),(0,"Sitz","Stand",0))
-  "Hocke":((0,"Stand","Stand",0),
+  "Stand":((0.1,"Rücken","Stand",0),(0.1,"Bauch","Stand",0),(0,"Sitz","Stand",0)),
+  "Hocke":(0,"Stand","Stand",0),
   "Bücke":(0,"Stand","Stand",0),
   "Grätsche":(0,"Stand","Stand",0),
   "halbe Schraube":(0.1,"Stand","Stand",0),
@@ -29,14 +29,14 @@ elemente={
 
   #IN SITZ
   "Sitz":((0,"Stand","Stand",0),(0,"Sitz","Sitz")),
-  "halbe Sitz":((0.1,"Stand","Sitz",0),(0.1,"Sitz", "Sitz",0),(0.2,"Rücken","Sitz",1))
+  "halbe Sitz":((0.1,"Stand","Sitz",0),(0.1,"Sitz", "Sitz",0),(0.2,"Rücken","Sitz",1)),
   "ganze Sitz":((0.2,"Sitz","Sitz",0),(0.2,"Stand","Sitz",1)),
   "Hocke in den Sitz":(0,"Stand","Sitz",2),
   "Grätsche in den Sitz":(0,"Stand","Sitz",2),
   "Muffel in den Sitz":(0.3,"Rücken","Stand",0),
   
   #IN RÜCKEN
-  "Rücken":((0.1,"Stand","Rücken",0),(0.1,"Sitz","Rücken",1),(0,"Rücken","Rücken",0),(0.2,"Bauch","Rücken",0))
+  "Rücken":((0.1,"Stand","Rücken",0),(0.1,"Sitz","Rücken",1),(0,"Rücken","Rücken",0),(0.2,"Bauch","Rücken",0)),
   "Halbe Rücken":((0.2,"Stand","Rücken",0),(0.3,"Rücken","Rücken",0),(0.2,"Sitz","Halbe Rücken",1)),
   "Salto vorwärts z. Rücken c":(0.5,"Rücken","Rücken"),
   "Muffel in den Rücken":(0.5,"Rücken","Stand",1),
@@ -46,16 +46,28 @@ elemente={
   "halbe Heli":(0.1,"Bauch","Bauch",0),
   "Muffel in den Bauch":(0.2,"Rücken","Bauch",1)
 
-  ""
-
 }
 
-gesperrteElemente=[]
-users={
-  #Name: [gesperrte Elemente (List) ,weirde Sprünge (Int, 0 (keine) - 2 (alle))]
-  "Malte":[[13.2],1]
-}
-elemente = {
+ausStand=[]
+ausSitz=[]
+ausRücken=[]
+ausBauch=[]
+
+for element in elemente:
+  varianten=elemente[element]
+  for variante in varianten:
+    startposition=variante[1]
+    if startposition=="Stand":
+      ausStand.append(variante)
+    elif startposition=="Sitz":
+      ausSitz.append(variante)
+    elif startposition=="Rücken":
+      ausRücken.append(variante)
+    elif startposition=="Bauch":
+      ausBauch.append(variante)
+
+alteElementsammlung = {
+  # Start-Position:[(Name des Sprungs,Ziel-Position)]
     "Stand": [
         ("Bauch","Bauch"), ("halbe Bauch","Bauch"), ("Sitz","Sitz"), ("halbe Sitz","Sitz"), ("Rücken","Rücken"), ("halbe Rücken","Rücken"),
         ("ganze Rücken","Rücken"), ("halbe Schraube","Stand"), ("ganze Schraube","Stand"), ("Grätsche","Stand"),
@@ -75,16 +87,38 @@ elemente = {
     
 }
 
+gesperrteElemente=[]
+erlaubteWeirdheit=0
+users={
+  #Name: [gesperrte Elemente (List) ,weirde Sprünge (Int, 0 (keine) - 2 (alle))]
+  "malte":[[13.2],1]
+}
+
+
 uebung = []
 spruengeInUebung = 0
+#currentuser=input("User?")
+#if currentuser.lower() in users:
+# print("Willkommen zurück,",currentuser)
+# gesperrteElemente=users[currentuser][0]
+# weirdheitsfaktor=users[currentuser][1]
+
 while spruengeInUebung < 10:
 	if spruengeInUebung == 0:
 	  #Beginn im Stand
-		erstesElementMitFolgeelement = elemente["Stand"][random.randrange(0, len(elemente))]
-		uebung.append(erstesElementMitFolgeelement)
+		erstesElement = ausStand[random.randrange(0, len(elemente))]
+    weirdheitDesElements = erstesElement[3]
+    while weirdheitDesElements>erlaubteWeirdheit:
+      erstesElement = ausStand[random.randrange(0, len(elemente))]
+      weirdheitDesElements = erstesElement[3]
+
+		uebung.append(erstesElement)
 	elif spruengeInUebung > 0:
 		letztePosition=uebung[-1][1]
-		zufallselement= elemente[letztePosition][random.randrange(0,len(elemente))]
+    if letztePosition=="Stand":
+		  zufallselement= ausStand[letztePosition][random.randrange(0,len(elemente))]
+    while weirdheitDesElements>erlaubteWeirdheit:
+
 		uebung.append(zufallselement)
 	spruengeInUebung += 1
 print("\n\n")
