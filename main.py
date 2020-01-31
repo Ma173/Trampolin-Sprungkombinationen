@@ -168,5 +168,8 @@ while spruengeInUebung < 10:
   letztePosition=uebung[-1][1][2]
   spruengeInUebung += 1
 print("\n\n")
-for sprung in uebung:
-  print (sprung[0])
+schwierigkeitDerUebung=0
+for element in uebung:
+  schwierigkeitDerUebung+=element[1][0]
+  print (element[0])
+print("\nSchwierigkeit der Übung:",schwierigkeitDerUebung)
